@@ -1,4 +1,4 @@
-version: '3.5'
+version: '3.9'
 
 services:
   db:
@@ -10,20 +10,25 @@ services:
       POSTGRES_DB: movie-catalogue-api
     container_name: movie-catalogue-db
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pgdata:/data/postgres
     ports:
       - '5432:5432'
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
+    command: npm run start:dev
     container_name: movie-catalogue-api
     environment:
       - PORT=${PORT}
     ports:
       - '3000:3000'
+    links:
+      - db
     depends_on:
       - db
     volumes:
-      - ./src:/app/src
+      - .:/usr/app
+
+volumes:
+  pgdata:
+    driver: local
