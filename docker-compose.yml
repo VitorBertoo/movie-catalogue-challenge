@@ -16,7 +16,7 @@ services:
 
   app:
     build: .
-    command: sh -c "npm run start:dev"
+    command: sh -c "npm run migration:run; npm run start:dev"
     container_name: movie-catalogue-api
     environment:
       - PORT=${PORT}
