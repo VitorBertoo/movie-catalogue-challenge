@@ -3,12 +3,12 @@ version: '3.9'
 services:
   db:
     image: postgres
+    container_name: movie-catalogue-db
     restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: movie-catalogue-api
-    container_name: movie-catalogue-db
     volumes:
       - pgdata:/data/postgres
     ports:
@@ -16,7 +16,7 @@ services:
 
   app:
     build: .
-    command: npm run start:dev
+    command: sh -c "npm run start:dev"
     container_name: movie-catalogue-api
     environment:
       - PORT=${PORT}
