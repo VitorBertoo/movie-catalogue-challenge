@@ -5,7 +5,9 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_PASSWORD=postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: movie-catalogue-api
     container_name: movie-catalogue-db
     volumes:
       - ./pgdata:/var/lib/postgresql/data
