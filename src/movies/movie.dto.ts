@@ -21,6 +21,9 @@ export class MovieDto {
   @IsString()
   @ApiProperty()
   synopsis: string;
+
+  @IsOptional()
+  genres?: string[];
 }
 
 export class FindAllParameters {

@@ -11,6 +11,9 @@ export class AppService {
     const cachedItem = await this.cacheManager.get('cached_item');
 
     console.log(cachedItem);
-    return 'Hello World!';
+    return `
+      <h1>Book Catalogue API</h1>
+      <p>Aplicação funcionando vá para <a href="/api">/api</a> para testar as rotas</p>
+    `;
   }
 }

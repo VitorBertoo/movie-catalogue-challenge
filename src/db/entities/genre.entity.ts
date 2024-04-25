@@ -5,30 +5,27 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { GenreEntity } from './genre.entity';
+import { MovieEntity } from './movie.entity';
 
-@Entity({ name: 'movies', synchronize: false })
-export class MovieEntity {
+@Entity({ name: 'genres' })
+export class GenreEntity {
   @PrimaryGeneratedColumn('uuid')
   id?: string;
 
   @Column({ type: 'varchar' })
-  title: string;
+  name: string;
 
-  @Column({ type: 'varchar' })
-  synopsis: string;
-
-  @ManyToMany(() => GenreEntity, { cascade: true, onDelete: 'CASCADE' })
+  @ManyToMany(() => MovieEntity, { cascade: true })
   @JoinTable({
     name: 'movie_genres',
     joinColumn: {
-      name: 'movieId',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
       name: 'genreId',
       referencedColumnName: 'id',
     },
+    inverseJoinColumn: {
+      name: 'movieId',
+      referencedColumnName: 'id',
+    },
   })
-  genres?: GenreEntity[];
+  movies: MovieEntity[];
 }

@@ -4,6 +4,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 
 import { MovieEntity } from './entities/movie.entity';
 import { UserEntity } from './entities/user.entity';
+import { GenreEntity } from './entities/genre.entity';
 
 config();
 
@@ -16,7 +17,7 @@ const dataSourceOptions: DataSourceOptions = {
   username: configService.get<string>('DB_USERNAME'),
   password: configService.get<string>('DB_PASSWORD'),
   database: configService.get<string>('DB_NAME'),
-  entities: [MovieEntity, UserEntity],
+  entities: [MovieEntity, UserEntity, GenreEntity],
   migrations: [__dirname + '/migrations/*.ts'],
   synchronize: false,
 };

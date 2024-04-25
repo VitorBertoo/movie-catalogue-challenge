@@ -27,7 +27,7 @@ export class MoviesController {
   }
 
   @Get()
-  @ApiQuery({ name: 'title' })
+  @ApiQuery({ name: 'title', required: false })
   async findAll(@Query() params: FindAllParameters): Promise<MovieDto[]> {
     return this.moviesService.findAll(params);
   }
