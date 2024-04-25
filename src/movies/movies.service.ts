@@ -20,20 +20,7 @@ export class MoviesService {
   ) {}
 
   async create(movie: MovieDto): Promise<MovieDto> {
-    const genrePromises = await movie.genres.map(async (genre) => {
-      return await this.genreRepository.findOne({
-        where: { name: genre },
-      });
-    });
-
-    // esperando as promises resolverem
-    const genres = await Promise.all(genrePromises);
-
-    const movieToSave: MovieEntity = {
-      title: movie.title,
-      synopsis: movie.synopsis,
-      genres,
-    };
+    const movieToSave: Partial<MovieEntity> = await this.mapDtoToEntity(movie);
 
     const createdMovie = await this.movieRepository.save(movieToSave);
 
@@ -64,12 +51,17 @@ export class MoviesService {
   }
 
   async update(id: string, movie: MovieDto) {
-    const foundMovie = await this.movieRepository.findOne({ where: { id } });
+    const foundMovie = await this.movieRepository.findOne({
+      where: { id },
+      relations: ['genres'],
+    });
 
     if (!foundMovie)
       throw new BadRequestException(`Movie with id ${id} not found`);
 
-    await this.movieRepository.update(id, this.mapDtoToEntity(movie));
+    const movieEntity = await this.mapDtoToEntity(movie);
+
+    await this.movieRepository.save({ id, ...movieEntity });
   }
 
   async remove(id: string) {
@@ -94,10 +86,22 @@ export class MoviesService {
     };
   }
 
-  private mapDtoToEntity(movieDto: MovieDto): Partial<MovieEntity> {
+  private async mapDtoToEntity(
+    movieDto: MovieDto,
+  ): Promise<Partial<MovieEntity>> {
+    const genrePromises = await movieDto.genres.map(async (genre) => {
+      return await this.genreRepository.findOne({
+        where: { name: genre },
+      });
+    });
+
+    // esperando as promises resolverem
+    const genres = await Promise.all(genrePromises);
+
     return {
       title: movieDto.title,
       synopsis: movieDto.synopsis,
+      genres,
     };
   }
 }

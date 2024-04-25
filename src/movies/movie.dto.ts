@@ -23,6 +23,7 @@ export class MovieDto {
   synopsis: string;
 
   @IsOptional()
+  @ApiProperty()
   genres?: string[];
 }
 
