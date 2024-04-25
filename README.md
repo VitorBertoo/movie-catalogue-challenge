@@ -11,11 +11,11 @@ Eu não sou o  cara que sabe de tudo, mas sou o que está disposto a aprender de
 
 ## Experiencias
 - Typescript - 3 ANOS
-- NestJs - Primeira aplicação
+- NestJs - Menos de 1 ano
 - TypeORM - 2 ANOS
 - Swagger - 2 ANOS
 - Docker - 2 ANOS
-- Redis - Primeira aplicação
+- Redis - Menos de 1 ano
 - Postgresql - 3 ANOS
 
 ## Installation
