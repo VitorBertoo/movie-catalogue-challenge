@@ -15,15 +15,27 @@ export class MovieDto {
   @IsString()
   @MinLength(3)
   @MaxLength(256)
-  @ApiProperty()
+  @ApiProperty({ example: 'Shrek' })
   title: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: 'Ogro conhece princesa' })
   synopsis: string;
 
   @IsOptional()
   @ApiProperty()
+  @ApiProperty({
+    isArray: true,
+    enum: [
+      'adventure',
+      'comedy',
+      'action',
+      'romance',
+      'fantasy',
+      'historical',
+      'horror',
+    ],
+  })
   genres?: string[];
 }
 

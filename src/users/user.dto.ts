@@ -15,10 +15,10 @@ export class UserDto {
   @IsString()
   @MinLength(3)
   @MaxLength(256)
-  @ApiProperty()
+  @ApiProperty({ example: 'teste' })
   username: string;
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ example: 'senha123' })
   password: string;
 }
