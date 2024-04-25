@@ -12,7 +12,10 @@ import {
 import { MoviesService } from './movies.service';
 import { FindAllParameters, FindOneParameters, MovieDto } from './movie.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
+import { ApiBearerAuth, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Movies')
+@ApiBearerAuth('bearer')
 @UseGuards(AuthGuard)
 @Controller('movies')
 export class MoviesController {
@@ -24,6 +27,7 @@ export class MoviesController {
   }
 
   @Get()
+  @ApiQuery({ name: 'title' })
   async findAll(@Query() params: FindAllParameters): Promise<MovieDto[]> {
     return this.moviesService.findAll(params);
   }
@@ -34,6 +38,7 @@ export class MoviesController {
   }
 
   @Put('/:id')
+  @ApiParam({ name: 'id' })
   async update(@Param() params: FindOneParameters, @Body() movie: MovieDto) {
     return this.moviesService.update(params.id, movie);
   }

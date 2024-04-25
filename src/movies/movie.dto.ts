@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsOptional,
   IsString,
@@ -14,9 +15,11 @@ export class MovieDto {
   @IsString()
   @MinLength(3)
   @MaxLength(256)
+  @ApiProperty()
   title: string;
 
   @IsString()
+  @ApiProperty()
   synopsis: string;
 }
 

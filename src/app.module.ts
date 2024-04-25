@@ -16,8 +16,8 @@ import * as redisStore from 'cache-manager-redis-store';
     CacheModule.register((configService: ConfigService) => ({
       isGlobal: true,
       store: redisStore,
-      host: configService.get<string>('REDIS_HOST'),
-      port: +configService.get<number>('REDIS_PORT'),
+      host: configService.get<string>('REDIS_HOST') || 'localhost',
+      port: +configService.get<number>('REDIS_PORT') || 6379,
     })),
     ConfigModule.forRoot({ isGlobal: true }),
     DbModule,
