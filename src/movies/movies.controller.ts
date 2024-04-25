@@ -7,10 +7,13 @@ import {
   Delete,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { FindAllParameters, FindOneParameters, MovieDto } from './movie.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
